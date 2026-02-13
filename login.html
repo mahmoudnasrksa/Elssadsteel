@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تسجيل الدخول - مصنع السد للصناعة</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="login-page">
+
+<div class="login-container">
+  <div class="login-box">
+    <div class="logo">
+      <div class="logo-icon">
+        <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+          <path d="M30 5L50 15V35L30 45L10 35V15L30 5Z" stroke="#00d4aa" stroke-width="2.5"/>
+          <path d="M30 15L40 20V30L30 35L20 30V20L30 15Z" fill="#00d4aa"/>
+        </svg>
+      </div>
+      <h1>مصنع السد للصناعة</h1>
+      <p>نظام إدارة الإنتاج والبيليت</p>
+    </div>
+
+    <div id="alert" class="alert" style="display:none;"></div>
+
+    <form id="loginForm" onsubmit="handleLogin(event)">
+      <div class="input-group">
+        <label for="username">اسم المستخدم</label>
+        <input 
+          type="text" 
+          id="username" 
+          name="username" 
+          placeholder="أدخل اسم المستخدم"
+          required
+          autocomplete="username"
+        >
+      </div>
+
+      <div class="input-group">
+        <label for="password">كلمة المرور</label>
+        <div class="password-input">
+          <input 
+            type="password" 
+            id="password" 
+            name="password" 
+            placeholder="أدخل كلمة المرور"
+            required
+            autocomplete="current-password"
+          >
+          <button type="button" class="toggle-password" onclick="togglePassword()">
+            <span id="eyeIcon">👁️</span>
+          </button>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-login">
+        <span>تسجيل الدخول</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M10 17l5-5-5-5v10z"/>
+        </svg>
+      </button>
+    </form>
+
+    <div class="demo-users">
+      <p class="demo-title">الحسابات المتاحة:</p>
+      <div class="demo-grid">
+        <div class="demo-card" onclick="fillLogin('admin', 'admin123')">
+          <span class="role-badge admin">المدير</span>
+          <p class="username">admin</p>
+        </div>
+        <div class="demo-card" onclick="fillLogin('scale_supervisor', '123456')">
+          <span class="role-badge scale">مشرف الميزان</span>
+          <p class="username">scale_supervisor</p>
+        </div>
+        <div class="demo-card" onclick="fillLogin('billet_supervisor', '123456')">
+          <span class="role-badge billet">مشرف البيليت</span>
+          <p class="username">billet_supervisor</p>
+        </div>
+        <div class="demo-card" onclick="fillLogin('general_supervisor', '123456')">
+          <span class="role-badge general">المشرف العام</span>
+          <p class="username">general_supervisor</p>
+        </div>
+        <div class="demo-card" onclick="fillLogin('sales', '123456')">
+          <span class="role-badge sales">مندوب المبيعات</span>
+          <p class="username">sales</p>
+        </div>
+        <div class="demo-card" onclick="fillLogin('lab', '123456')">
+          <span class="role-badge lab">المعمل</span>
+          <p class="username">lab</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/auth.js"></script>
+<script>
+// التحقق من تسجيل الدخول
+if (isLoggedIn()) {
+  window.location.href = 'index.html';
+}
+
+// معالجة تسجيل الدخول
+function handleLogin(event) {
+  event.preventDefault();
+  
+  const username = document.getElementById('username').value.trim();
+  const password = document.getElementById('password').value;
+  
+  if (!username || !password) {
+    showAlert('الرجاء إدخال اسم المستخدم وكلمة المرور', 'error');
+    return false;
+  }
+  
+  const result = login(username, password);
+  
+  if (result.success) {
+    showAlert('تم تسجيل الدخول بنجاح!', 'success');
+    setTimeout(() => {
+      window.location.href = 'index.html';
+    }, 500);
+  } else {
+    showAlert(result.message, 'error');
+  }
+  
+  return false;
+}
+
+// عرض رسالة
+function showAlert(message, type) {
+  const alert = document.getElementById('alert');
+  alert.textContent = message;
+  alert.className = `alert ${type}`;
+  alert.style.display = 'block';
+  
+  setTimeout(() => {
+    alert.style.display = 'none';
+  }, 5000);
+}
+
+// تبديل إظهار كلمة المرور
+function togglePassword() {
+  const input = document.getElementById('password');
+  const icon = document.getElementById('eyeIcon');
+  
+  if (input.type === 'password') {
+    input.type = 'text';
+    icon.textContent = '🙈';
+  } else {
+    input.type = 'password';
+    icon.textContent = '👁️';
+  }
+}
+
+// ملء بيانات تجريبية
+function fillLogin(username, password) {
+  document.getElementById('username').value = username;
+  document.getElementById('password').value = password;
+}
+
+// التركيز على حقل اسم المستخدم
+document.getElementById('username').focus();
+</script>
+
+</body>
+</html>

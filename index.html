@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مصنع السد - نظام إدارة الإنتاج</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <div class="container">
+    <h1>🏭 مصنع السد للصناعة</h1>
+    <p>نظام إدارة الإنتاج والبيليت</p>
+  </div>
+</header>
+
+<!-- Container -->
+<div class="container">
+  
+  <!-- Stats -->
+  <div class="stats-grid" id="statsGrid"></div>
+
+  <!-- Main Content -->
+  <div id="mainContent"></div>
+
+</div>
+
+<!-- Modal -->
+<div id="modal" class="modal" onclick="closeModalOnBackdrop(event)">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <h3 id="modalTitle">عنوان</h3>
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- Scripts - الترتيب مهم! -->
+<script src="js/storage.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/cars.js"></script>
+<script src="js/billets.js"></script>
+<script src="js/shipping.js"></script>
+<script src="js/attendance.js"></script>
+<script src="js/purchases.js"></script>
+<script src="js/ui.js"></script>
+
+</body>
+</html>
